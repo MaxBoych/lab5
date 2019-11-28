@@ -18,10 +18,10 @@ public class Config {
     public static final String RESULT = "result";
     public static final String IS_EXPECTED = "isExpected";
 
-    public static final String URL = "URL";
+    public static final String URL = "testUrl";
     public static final String EMPTY_URL = "";
 
-    public static final String COUNT = "URL";
+    public static final String COUNT = "count";
     public static final String EMPTY_COUNT = "";
 
     public static final int STATUS_OK = 200;
