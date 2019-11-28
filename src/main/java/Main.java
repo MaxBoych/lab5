@@ -20,7 +20,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         ActorSystem system = ActorSystem.create();
-        ActorRef routeActor = system.actorOf(Props.create(CacheActor.class));
+        ActorRef cacheActor = system.actorOf(Props.create(CacheActor.class));
 
         Http http = Http.get(system);
         AsyncHttpClient asyncHttpClient = Dsl.asyncHttpClient();
