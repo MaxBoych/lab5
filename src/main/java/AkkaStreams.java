@@ -58,7 +58,7 @@ public class AkkaStreams {
                                                         .thenCompose(f ->
                                                                 CompletableFuture.completedFuture(System.currentTimeMillis() - millisNow));
                                             })
-                                            .toMat(Sink.fold())
+                                            .toMat(Sink.fold(0, ))
                                     )
                         }
                     })
