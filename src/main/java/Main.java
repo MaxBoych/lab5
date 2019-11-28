@@ -23,7 +23,7 @@ public class Main {
         ActorRef routeActor = system.actorOf(Props.create(RouteActor.class));
 
         Http http = Http.get(system);
-        AsyncHttpClient asyncHttpClient = asyncHttpClient();
+        AsyncHttpClient asyncHttpClient = AsyncHttpClient();
         ActorMaterializer materializer = ActorMaterializer.create(system);
 
         Flow<HttpRequest, HttpResponse, NotUsed> flow = new JSRouter().jsRoute(routeActor)
