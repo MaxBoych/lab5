@@ -8,6 +8,8 @@ import org.asynchttpclient.AsyncHttpClient;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 
+import java.util.concurrent.Future;
+
 public class AkkaStreams {
 
     public Flow<HttpRequest, HttpResponse, NotUsed> route(ActorRef cacheActor,
@@ -22,9 +24,10 @@ public class AkkaStreams {
 
                     return new GetMessage(URL, count);
                 })
-                .mapAsync(1, message ->
-                        Patterns.ask(cacheActor, message, Config.TIMEOUT_MILLIS)
-                        .
+                .mapAsync(1, message -> {
+
+                    Future<Object> future = Patterns.ask(cacheActor, message, Config.TIMEOUT_MILLIS);
+                        }
 
     }
 }
