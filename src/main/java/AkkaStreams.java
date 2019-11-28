@@ -1,11 +1,14 @@
 import akka.NotUsed;
 import akka.actor.ActorRef;
+import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import org.asynchttpclient.AsyncHttpClient;
 
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
+
+import java.util.regex.Pattern;
 
 public class AkkaStreams {
 
@@ -21,6 +24,7 @@ public class AkkaStreams {
 
                     return new GetMessage(URL, count);
                 })
-                .mapAsync()
+                .mapAsync(1, message ->
+                        Patterns.ask(cacheActor, message, ))
     }
 }
