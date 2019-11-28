@@ -51,6 +51,8 @@ public class AkkaStreams {
                                                     .mapConcat(pair -> Collections.nCopies(pair.second(), pair.first()))
                                                     .mapAsync(1, URL -> {
 
+                                                        CompletionStage<Integer>
+
                                                         long millisNow = System.currentTimeMillis();
                                                         return asyncHttpClient
                                                                 .prepareGet(URL.toString())
