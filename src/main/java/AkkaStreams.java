@@ -47,7 +47,7 @@ public class AkkaStreams {
                                     .toMat(
                                             Flow.<Pair<HttpRequest, Integer>>create()
                                             .mapConcat(pair -> Collections.nCopies(pair.second(), pair.first()))
-                                            .mapAsync()
+                                            .mapAsync(1, )
                                     )
                         }
                     })
