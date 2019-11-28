@@ -46,7 +46,8 @@ public class AkkaStreams {
                             return Source.from(Collections.singletonList(getMessage))
                                     .toMat(
                                             Flow.<Pair<HttpRequest, Integer>>create()
-                                            .mapConcat(pair -> Collections.nCopies(pair.se))
+                                            .mapConcat(pair -> Collections.nCopies(pair.second(), pair.first()))
+                                            .mapAsync()
                                     )
                         }
                     })
