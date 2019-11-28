@@ -47,8 +47,8 @@ public class AkkaStreams {
 
                             return Source.from(Collections.singletonList(getMessage))
                                     .toMat(
-                                            Flow.<Pair<HttpRequest, Integer>>create()
-                                                    .mapConcat(pair -> Collections.nCopies(pair.second(), pair.first()))
+                                            Flow.<GetMessage>create()
+                                                    .mapConcat(message -> Collections.nCopies(message.getCount(),message.getURL()))
                                                     .mapAsync(1, URL -> {
 
                                                         long millisNow = System.currentTimeMillis();
@@ -62,7 +62,8 @@ public class AkkaStreams {
                                                     .toMat(Sink.fold(0L, Long::sum), Keep.right()),
                                             Keep.right()
                                     )
-
+                                    .run(materializer)
+                                    .thenCompose()
                         }
                     });
                 }
