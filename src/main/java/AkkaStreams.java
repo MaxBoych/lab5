@@ -8,6 +8,8 @@ import org.asynchttpclient.AsyncHttpClient;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 
+
+
 import java.util.regex.Pattern;
 
 public class AkkaStreams {
@@ -25,6 +27,8 @@ public class AkkaStreams {
                     return new GetMessage(URL, count);
                 })
                 .mapAsync(1, message ->
-                        Patterns.ask(cacheActor, message, ))
+                        Patterns.ask(cacheActor, message, Config.TIMEOUT_MILLIS)
+                        .
+
     }
 }
