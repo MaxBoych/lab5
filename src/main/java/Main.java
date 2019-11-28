@@ -11,6 +11,7 @@ import akka.stream.javadsl.Flow;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import org.asynchttpclient.AsyncHttpClient;
+import org.asynchttpclient.Dsl.as
 
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
@@ -22,7 +23,7 @@ public class Main {
         ActorRef routeActor = system.actorOf(Props.create(RouteActor.class));
 
         Http http = Http.get(system);
-        AsyncHttpClient asyncHttpClient =
+        AsyncHttpClient asyncHttpClient = asyncHttpClient();
         ActorMaterializer materializer = ActorMaterializer.create(system);
 
         Flow<HttpRequest, HttpResponse, NotUsed> flow = new JSRouter().jsRoute(routeActor)
