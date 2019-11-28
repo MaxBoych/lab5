@@ -11,6 +11,11 @@ public class СacheActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
-                .match()
+                .match(PutMessage.class, message ->
+                        cache.put(message.getURL(), message.getResponseTime())
+                )
+                .match(GetMessage.class, message -> {
+
+                })
     }
 }
