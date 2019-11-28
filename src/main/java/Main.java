@@ -10,6 +10,7 @@ import akka.stream.javadsl.Flow;
 
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
+import org.asynchttpclient.AsyncHttpClient;
 
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
@@ -21,6 +22,7 @@ public class Main {
         ActorRef routeActor = system.actorOf(Props.create(RouteActor.class));
 
         Http http = Http.get(system);
+        AsyncHttpClient asyncHttpClient =
         ActorMaterializer materializer = ActorMaterializer.create(system);
 
         Flow<HttpRequest, HttpResponse, NotUsed> flow = new JSRouter().jsRoute(routeActor)
@@ -35,7 +37,7 @@ public class Main {
         System.out.println("Server start at http://" + Config.HOST + ":" + Config.PORT);
         System.in.read();
 
-        
+
         completionStage.thenCompose(ServerBinding::unbind)
                 .thenAccept(sv -> system.terminate());
     }
