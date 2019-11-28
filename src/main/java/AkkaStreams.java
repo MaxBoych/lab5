@@ -4,8 +4,8 @@ import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import org.asynchttpclient.AsyncHttpClient;
 
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import akka.http.javadsl.model.HttpRequest;
+import akka.http.javadsl.model.HttpResponse;
 
 public class AkkaStreams {
 
@@ -16,6 +16,7 @@ public class AkkaStreams {
         return Flow.of(HttpRequest.class)
                 .map(request -> {
 
+                    String URL = request.getUri().query()
                 })
     }
 }
