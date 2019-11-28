@@ -48,6 +48,8 @@ public class AkkaStreams {
                                             Flow.<Pair<HttpRequest, Integer>>create()
                                             .mapConcat(pair -> Collections.nCopies(pair.second(), pair.first()))
                                             .mapAsync(1, URL -> {
+                                                return asyncHttpClient
+                                                        .prepareGet(URL.toString()),
                                                 
                                             })
                                     )
