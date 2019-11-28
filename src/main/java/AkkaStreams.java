@@ -8,10 +8,6 @@ import org.asynchttpclient.AsyncHttpClient;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 
-
-
-import java.util.regex.Pattern;
-
 public class AkkaStreams {
 
     public Flow<HttpRequest, HttpResponse, NotUsed> route(ActorRef cacheActor,
