@@ -4,6 +4,7 @@ import akka.japi.Pair;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
 import org.asynchttpclient.AsyncHttpClient;
 
@@ -57,7 +58,7 @@ public class AkkaStreams {
                                                         .thenCompose(f ->
                                                                 CompletableFuture.completedFuture(System.currentTimeMillis() - millisNow));
                                             })
-                                            .toMat()
+                                            .toMat(Sink.fold())
                                     )
                         }
                     })
