@@ -8,7 +8,10 @@ import org.asynchttpclient.AsyncHttpClient;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 
+import scala.compat.java8.FutureConverters;
 import scala.concurrent.Future;
+
+import java.util.concurrent.CompletionStage;
 
 public class AkkaStreams {
 
@@ -27,7 +30,9 @@ public class AkkaStreams {
                 .mapAsync(1, message -> {
 
                     Future<Object> future = Patterns.ask(cacheActor, message, Config.TIMEOUT_MILLIS);
-                    
+                    CompletionStage<Object> stage = FutureConverters.toJava(future);
+
+                    return stage.thenCompose()
                         }
 
     }
