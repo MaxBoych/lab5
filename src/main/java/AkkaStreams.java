@@ -48,12 +48,16 @@ public class AkkaStreams {
                                             Flow.<Pair<HttpRequest, Integer>>create()
                                             .mapConcat(pair -> Collections.nCopies(pair.second(), pair.first()))
                                             .mapAsync(1, URL -> {
+
+                                                long millisNow = System.currentTimeMillis();
                                                 return asyncHttpClient
                                                         .prepareGet(URL.toString())
                                                         .execute()
                                                         .toCompletableFuture()
-                                                        .thenCompose()
+                                                        .thenCompose(f ->
+                                                                CompletableFuture.completedFuture(System.currentTimeMillis() - millisNow));
                                             })
+                                            .toMat()
                                     )
                         }
                     })
