@@ -49,8 +49,10 @@ public class AkkaStreams {
                                             .mapConcat(pair -> Collections.nCopies(pair.second(), pair.first()))
                                             .mapAsync(1, URL -> {
                                                 return asyncHttpClient
-                                                        .prepareGet(URL.toString()),
-                                                
+                                                        .prepareGet(URL.toString())
+                                                        .execute()
+                                                        .toCompletableFuture()
+                                                        .thenCompose()
                                             })
                                     )
                         }
