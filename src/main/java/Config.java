@@ -20,4 +20,7 @@ public class Config {
 
     public static final String URL = "URL";
     public static final String EMPTY_URL = "";
+
+    public static final String COUNT = "URL";
+    public static final String EMPTY_COUNT = "";
 }

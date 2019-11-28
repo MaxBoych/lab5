@@ -17,7 +17,9 @@ public class AkkaStreams {
                 .map(request -> {
 
                     String URL = request.getUri().query().getOrElse(Config.URL, Config.EMPTY_URL);
-                    Integer count = request.getUri().query()
+                    Integer count = Integer.parseInt(request.getUri().query().getOrElse(Config.COUNT, Config.EMPTY_COUNT));
+
+                    return new GetMessage(URL, count);
                 })
     }
 }
