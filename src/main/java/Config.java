@@ -23,4 +23,6 @@ public class Config {
 
     public static final String COUNT = "URL";
     public static final String EMPTY_COUNT = "";
+
+    public static final int STATUS_OK = 200;
 }

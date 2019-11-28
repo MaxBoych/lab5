@@ -1,9 +1,9 @@
 public class PutMessage {
 
     private String URL;
-    private Integer responseTime;
+    private Long responseTime;
 
-    public PutMessage(String URL, Integer responseTime) {
+    public PutMessage(String URL, Long responseTime) {
         this.URL = URL;
         this.responseTime = responseTime;
     }
@@ -12,7 +12,7 @@ public class PutMessage {
         return URL;
     }
 
-    public Integer getResponseTime() {
+    public Long getResponseTime() {
         return responseTime;
     }
 }

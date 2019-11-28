@@ -1,10 +1,10 @@
 public class ResultMessage {
 
     private String URL;
-    private Integer responseTime;
+    private Long responseTime;
     private boolean success;
 
-    public ResultMessage(String URL, Integer responseTime, boolean success) {
+    public ResultMessage(String URL, Long responseTime, boolean success) {
         this.URL = URL;
         this.responseTime = responseTime;
         this.success = success;
@@ -14,7 +14,7 @@ public class ResultMessage {
         return URL;
     }
 
-    public Integer getResponseTime() {
+    public Long getResponseTime() {
         return responseTime;
     }
 

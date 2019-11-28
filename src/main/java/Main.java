@@ -11,7 +11,7 @@ import akka.stream.javadsl.Flow;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import org.asynchttpclient.AsyncHttpClient;
-import org.asynchttpclient.Dsl
+import org.asynchttpclient.Dsl;
 
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
@@ -26,18 +26,16 @@ public class Main {
         AsyncHttpClient asyncHttpClient = Dsl.asyncHttpClient();
         ActorMaterializer materializer = ActorMaterializer.create(system);
 
-        Flow<HttpRequest, HttpResponse, NotUsed> flow =
-                .flow(system, materializer);
+        Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = new AkkaStreams().route(cacheActor, asyncHttpClient, materializer);
 
         CompletionStage<ServerBinding> completionStage = http.bindAndHandle(
-                flow,
+                routeFlow,
                 ConnectHttp.toHost(Config.HOST, Config.PORT),
                 materializer
         );
 
         System.out.println("Server start at http://" + Config.HOST + ":" + Config.PORT);
         System.in.read();
-
 
         completionStage.thenCompose(ServerBinding::unbind)
                 .thenAccept(sv -> system.terminate());
