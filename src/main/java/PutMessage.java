@@ -1,5 +1,7 @@
 public class PutMessage {
 
     private String URL;
-    private Integer 
+    private Integer responseTime;
+
+    
 }
