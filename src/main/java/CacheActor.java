@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class CacheActor extends AbstractActor {
 
-    private Map<String, Integer> cache = new HashMap<>();
+    private Map<String, Long> cache = new HashMap<>();
 
     @Override
     public Receive createReceive() {
@@ -20,7 +20,7 @@ public class CacheActor extends AbstractActor {
                     if (cache.containsKey(message.getURL())) {
                         sender().tell(new ResultMessage(message.getURL(), cache.get(message.getURL()), true), ActorRef.noSender());
                     } else {
-                        sender().tell(new ResultMessage(message.getURL(), Integer.MIN_VALUE, false), ActorRef.noSender());
+                        sender().tell(new ResultMessage(message.getURL(), Long.MIN_VALUE, false), ActorRef.noSender());
                     }
                 })
                 .build();
