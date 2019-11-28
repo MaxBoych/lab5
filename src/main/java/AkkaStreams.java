@@ -4,6 +4,7 @@ import akka.japi.Pair;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import akka.stream.javadsl.Keep;
 import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
 import org.asynchttpclient.AsyncHttpClient;
@@ -47,21 +48,23 @@ public class AkkaStreams {
                             return Source.from(Collections.singletonList(getMessage))
                                     .toMat(
                                             Flow.<Pair<HttpRequest, Integer>>create()
-                                            .mapConcat(pair -> Collections.nCopies(pair.second(), pair.first()))
-                                            .mapAsync(1, URL -> {
+                                                    .mapConcat(pair -> Collections.nCopies(pair.second(), pair.first()))
+                                                    .mapAsync(1, URL -> {
 
-                                                long millisNow = System.currentTimeMillis();
-                                                return asyncHttpClient
-                                                        .prepareGet(URL.toString())
-                                                        .execute()
-                                                        .toCompletableFuture()
-                                                        .thenCompose(f ->
-                                                                CompletableFuture.completedFuture(System.currentTimeMillis() - millisNow));
-                                            })
-                                            .toMat(Sink.fold(0, ))
+                                                        long millisNow = System.currentTimeMillis();
+                                                        return asyncHttpClient
+                                                                .prepareGet(URL.toString())
+                                                                .execute()
+                                                                .toCompletableFuture()
+                                                                .thenCompose(f ->
+                                                                        CompletableFuture.completedFuture(System.currentTimeMillis() - millisNow));
+                                                    })
+                                                    .toMat(Sink.fold(0L, Long::sum), Keep.right()),
+                                            Keep.right()
                                     )
+
                         }
-                    })
+                    });
                 }
 
     }
