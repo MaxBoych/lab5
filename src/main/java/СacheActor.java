@@ -16,6 +16,11 @@ public class СacheActor extends AbstractActor {
                 )
                 .match(GetMessage.class, message -> {
 
+                    if (cache.containsKey(message.getURL())) {
+                        sender().tell(new ResultMessage(message.getURL(), cache.get(message.getURL()), true), self());
+                    } else {
+                        sender().tell(new ResultMessage(message.getURL(), 0, false), self());
+                    }
                 })
     }
 }
