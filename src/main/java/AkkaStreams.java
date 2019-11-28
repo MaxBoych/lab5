@@ -43,7 +43,9 @@ public class AkkaStreams {
                         } else {
 
                             return Source.from(Collections.singletonList(getMessage))
-                                    .toMat()
+                                    .toMat(
+                                            Flow.<Pair<HttpRequest, Integer>>create()
+                                    )
                         }
                     })
                 }
