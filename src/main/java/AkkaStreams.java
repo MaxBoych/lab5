@@ -16,7 +16,7 @@ public class AkkaStreams {
         return Flow.of(HttpRequest.class)
                 .map(request -> {
 
-                    String URL = request.getUri().query()
+                    String URL = request.getUri().query().getOrElse()
                 })
     }
 }
