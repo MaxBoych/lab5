@@ -20,13 +20,13 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         ActorSystem system = ActorSystem.create();
-        ActorRef routeActor = system.actorOf(Props.create(RouteActor.class));
+        ActorRef routeActor = system.actorOf(Props.create(CacheActor.class));
 
         Http http = Http.get(system);
         AsyncHttpClient asyncHttpClient = Dsl.asyncHttpClient();
         ActorMaterializer materializer = ActorMaterializer.create(system);
 
-        Flow<HttpRequest, HttpResponse, NotUsed> flow = new JSRouter().jsRoute(routeActor)
+        Flow<HttpRequest, HttpResponse, NotUsed> flow =
                 .flow(system, materializer);
 
         CompletionStage<ServerBinding> completionStage = http.bindAndHandle(

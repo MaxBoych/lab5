@@ -1,10 +1,11 @@
 import akka.actor.AbstractActor;
+import akka.actor.ActorRef;
 import akka.japi.pf.ReceiveBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class СacheActor extends AbstractActor {
+public class CacheActor extends AbstractActor {
 
     private Map<String, Integer> cache = new HashMap<>();
 
@@ -17,10 +18,11 @@ public class СacheActor extends AbstractActor {
                 .match(GetMessage.class, message -> {
 
                     if (cache.containsKey(message.getURL())) {
-                        sender().tell(new ResultMessage(message.getURL(), cache.get(message.getURL()), true), self());
+                        sender().tell(new ResultMessage(message.getURL(), cache.get(message.getURL()), true), ActorRef.noSender());
                     } else {
-                        sender().tell(new ResultMessage(message.getURL(), 0, false), self());
+                        sender().tell(new ResultMessage(message.getURL(), Integer.MIN_VALUE, false), ActorRef.noSender());
                     }
                 })
+                .build();
     }
 }
