@@ -17,4 +17,7 @@ public class Config {
     public static final String PARAMS = "params";
     public static final String RESULT = "result";
     public static final String IS_EXPECTED = "isExpected";
+
+    public static final String URL = "URL";
+    public static final String EMPTY_URL = "";
 }

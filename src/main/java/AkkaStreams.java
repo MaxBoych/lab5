@@ -16,7 +16,8 @@ public class AkkaStreams {
         return Flow.of(HttpRequest.class)
                 .map(request -> {
 
-                    String URL = request.getUri().query().getOrElse()
+                    String URL = request.getUri().query().getOrElse(Config.URL, Config.EMPTY_URL);
+                    Integer count = request.getUri().query()
                 })
     }
 }
