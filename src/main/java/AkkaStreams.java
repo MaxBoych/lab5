@@ -21,5 +21,6 @@ public class AkkaStreams {
 
                     return new GetMessage(URL, count);
                 })
+                .mapAsync()
     }
 }
