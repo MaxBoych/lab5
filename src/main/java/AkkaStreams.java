@@ -8,7 +8,7 @@ import org.asynchttpclient.AsyncHttpClient;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 
-import java.util.concurrent.Future;
+import scala.concurrent.Future;
 
 public class AkkaStreams {
 
@@ -27,6 +27,7 @@ public class AkkaStreams {
                 .mapAsync(1, message -> {
 
                     Future<Object> future = Patterns.ask(cacheActor, message, Config.TIMEOUT_MILLIS);
+                    
                         }
 
     }
